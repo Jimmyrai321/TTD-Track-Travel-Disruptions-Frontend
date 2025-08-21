@@ -1,5 +1,8 @@
 package com.example.tracktraveldisruptionsapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class RailDataDTO extends BaseObservable {
+public class RailDataDTO extends BaseObservable implements Parcelable {
 
 
     private String generatedAt;
@@ -43,9 +46,11 @@ public class RailDataDTO extends BaseObservable {
 
     private Boolean cancelled;
 
+    private String operator;
+
     public RailDataDTO(String generatedAt, String departureStationCrs, String departureStationName, String destinationStationCrs, String destinationStationName,
                        String etd, String std, String platform, String eta, String sta, String cancelReason, String delayReason, String serviceID,
-                       String affectedBy, Boolean filterLocationCancelled, Boolean cancelled) {
+                       String affectedBy, Boolean filterLocationCancelled, Boolean cancelled, String operator) {
         this.generatedAt = generatedAt;
         this.departureStationCrs = departureStationCrs;
         this.departureStationName = departureStationName;
@@ -62,9 +67,54 @@ public class RailDataDTO extends BaseObservable {
         this.affectedBy = affectedBy;
         this.filterLocationCancelled = filterLocationCancelled;
         this.cancelled = cancelled;
+        this.operator = operator;
     }
 
     public RailDataDTO() {
+    }
+
+    protected RailDataDTO(Parcel in) {
+        generatedAt = in.readString();
+        departureStationCrs = in.readString();
+        departureStationName = in.readString();
+        destinationStationCrs = in.readString();
+        destinationStationName = in.readString();
+        etd = in.readString();
+        std = in.readString();
+        platform = in.readString();
+        eta = in.readString();
+        sta = in.readString();
+        cancelReason = in.readString();
+        delayReason = in.readString();
+        serviceID = in.readString();
+        affectedBy = in.readString();
+        byte tmpFilterLocationCancelled = in.readByte();
+        filterLocationCancelled = tmpFilterLocationCancelled == 0 ? null : tmpFilterLocationCancelled == 1;
+        byte tmpCancelled = in.readByte();
+        cancelled = tmpCancelled == 0 ? null : tmpCancelled == 1;
+        operator = in.readString();
+    }
+
+    public static final Creator<RailDataDTO> CREATOR = new Creator<RailDataDTO>() {
+        @Override
+        public RailDataDTO createFromParcel(Parcel in) {
+            return new RailDataDTO(in);
+        }
+
+        @Override
+        public RailDataDTO[] newArray(int size) {
+            return new RailDataDTO[size];
+        }
+    };
+
+    @Bindable
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+        notifyPropertyChanged(BR.operator);
     }
 
     @Bindable
@@ -247,7 +297,34 @@ public class RailDataDTO extends BaseObservable {
                 ", affectedBy='" + affectedBy + '\'' +
                 ", filterLocationCancelled=" + filterLocationCancelled +
                 ", cancelled=" + cancelled +
+                ", operator" + operator+
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(generatedAt);
+        dest.writeString(departureStationCrs);
+        dest.writeString(departureStationName);
+        dest.writeString(destinationStationCrs);
+        dest.writeString(destinationStationName);
+        dest.writeString(etd);
+        dest.writeString(std);
+        dest.writeString(platform);
+        dest.writeString(eta);
+        dest.writeString(sta);
+        dest.writeString(cancelReason);
+        dest.writeString(delayReason);
+        dest.writeString(serviceID);
+        dest.writeString(affectedBy);
+        dest.writeByte((byte) (filterLocationCancelled == null ? 0 : filterLocationCancelled ? 1 : 2));
+        dest.writeByte((byte) (cancelled == null ? 0 : cancelled ? 1 : 2));
+        dest.writeString(operator);
     }
 }
 

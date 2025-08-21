@@ -17,6 +17,7 @@ public class JourneyRepository {
     private MutableLiveData<List<BackendMap>> mutableLiveData = new MutableLiveData<>();
     private Application application;
 
+
     public JourneyRepository(Application application) {
         this.application = application;
     }
@@ -29,7 +30,7 @@ public class JourneyRepository {
             public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
                 List<BackendMap> journeys = response.body();
               
-                Log.i("JOURNEYLISTLOG","ON SUCCESS: "+response.code());
+                Log.i("JOURNEYLISTLOG","CONNECTED, STATUS CODE: "+response.code());
                 Log.i("JOURNEYLISTLOG", String.valueOf(journeys));
 
 
@@ -38,7 +39,7 @@ public class JourneyRepository {
 
             @Override
             public void onFailure(Call<List<BackendMap>> call, Throwable throwable) {
-                Log.i("JOURNEYLISTLOG","FAILURE");
+                Log.i("JOURNEYLISTLOG"," CONNECTION FAILED");
                 Log.i("JOURNEYLISTLOG",throwable.getLocalizedMessage());
             }
         });
@@ -54,15 +55,15 @@ public class JourneyRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(application.getApplicationContext(), "Journey added successfully.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(application.getApplicationContext(), "Failed to add new journey! " + response.message(), Toast.LENGTH_SHORT).show();
-                    Log.e("postJourney", "Failed to add new journey: " + response.message());
+                    Toast.makeText(application.getApplicationContext(), "Failed to add journey, Journey not valid " + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e("postJourney1", "Failed to add new journey: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Journey> call, Throwable throwable) {
                 Toast.makeText(application.getApplicationContext(), "Failed to add new journey!", Toast.LENGTH_SHORT).show();
-                Log.e("postJourney", "onFailure: " + throwable.getLocalizedMessage());
+                Log.e("postJourney2", "onFailure: " + throwable.getLocalizedMessage());
             }
         });
     }
@@ -111,12 +112,4 @@ public class JourneyRepository {
             }
         });
     }
-
-    public void validateJourney(Journey journey, Callback<Void> callback){
-        TTDApiService service = RetrofitInstance.getService();
-        Call<Void> call = service.validateJourney(journey);
-        call.enqueue(callback);
-    }
-
-
 }

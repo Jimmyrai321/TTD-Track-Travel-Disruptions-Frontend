@@ -20,11 +20,11 @@ public class utilsTest extends TestCase {
 //            System.out.println(s);
 //        }
 
-        BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/example/tracktraveldisruptionsapp/resources/uk-train-stations.json"));
-        Station[] station = new Gson().fromJson(br, Station[].class);
-        for(Station s : station){
-            System.out.println(s.getCrs());
-        }
+//        BufferedReader br = new BufferedReader(new FileReader("TrackTravelDisruptionsApp/app/src/main/assets/uk-train-stations.json"));
+//        Station[] station = new Gson().fromJson(br, Station[].class);
+//        for(Station s : station){
+//            System.out.println(s.getCrs());
+//        }
 
 
     }

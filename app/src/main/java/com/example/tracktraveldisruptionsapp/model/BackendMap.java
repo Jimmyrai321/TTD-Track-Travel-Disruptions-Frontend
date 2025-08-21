@@ -17,7 +17,6 @@ public class BackendMap {
     }
 
     public BackendMap() {
-
     }
 
     public Journey getJourneyDTO() {
@@ -26,6 +25,10 @@ public class BackendMap {
 
     public RailDataDTO getRailDataDTO() {
         return railDataDTO;
+    }
+
+    public void setRailDataDTO(RailDataDTO railDataDTO) {
+        this.railDataDTO = railDataDTO;
     }
 
     @Override
