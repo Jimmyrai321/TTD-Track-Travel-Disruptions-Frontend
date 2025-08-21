@@ -30,7 +30,7 @@ public class JourneyRepository {
             public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
                 List<BackendMap> journeys = response.body();
               
-                Log.i("JOURNEYLISTLOG","ON SUCCESS: "+response.code());
+                Log.i("JOURNEYLISTLOG","CONNECTED, STATUS CODE: "+response.code());
                 Log.i("JOURNEYLISTLOG", String.valueOf(journeys));
 
 
@@ -39,7 +39,7 @@ public class JourneyRepository {
 
             @Override
             public void onFailure(Call<List<BackendMap>> call, Throwable throwable) {
-                Log.i("JOURNEYLISTLOG","FAILURE");
+                Log.i("JOURNEYLISTLOG"," CONNECTION FAILED");
                 Log.i("JOURNEYLISTLOG",throwable.getLocalizedMessage());
             }
         });
