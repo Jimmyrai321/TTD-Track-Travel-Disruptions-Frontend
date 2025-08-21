@@ -62,7 +62,7 @@ The user can edit the journey on this page by clicking the pen icon from the hom
 
 2. Run ▶ 
    
-&nbsp;&nbsp;&nbsp;&nbsp;Run to deploy to an emulator or device. The IDE runs Gradle tasks under the hood. You **MUST** have [TTD-API](https://github.com/Jimmyrai321/TTD-Track-Travel-Disruptions-Backend) running locally on &nbsp;&nbsp;&nbsp;&nbsp;port 8080.
+&nbsp;&nbsp;&nbsp;&nbsp;Run to deploy to an emulator or device. The IDE runs Gradle tasks under the hood. You **MUST** have [TTD-API](https://github.com/Jimmyrai321/TTD-Track-Travel-Disruptions-Backend) running locally on port 8080.
 
 ### 🛠️ Option 2: Build with Gradle
 
